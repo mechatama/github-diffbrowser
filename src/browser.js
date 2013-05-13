@@ -54,6 +54,7 @@ Ghd.showContainerForPath = function(path) {
 Ghd.createTree = function() {
 	
 	var $container = $('<div class="ghd-container"></div>'),
+		$containerHeader = $('<span class="list-title">Select file to view:</span>').appendTo($container),
 		$files = $('<ul class="ghd-files"></ul>').appendTo($container)
 		;
 
@@ -126,7 +127,7 @@ Ghd.init = function() {
 	});
 
 	$tree = Ghd.createTree();
-	$tree.appendTo('body');
+	$tree.appendTo('.view-pull-request');
 
 	Ghd.log('loaded diff-browser');
 	Ghd.log(Ghd.hunks);

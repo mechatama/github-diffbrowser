@@ -1,13 +1,38 @@
 .ghd-container {
-	position: fixed;
-	top: 20px;
-	left: 20px;
+	position: absolute;
+	top: 0px;
+	right: 100%;
+    margin-right: 10px;
+    background-color: #eaeaea;
+    background-image: linear-gradient(#fafafa, #eaeaea);
+    border: 1px solid #eaeaea;
+    border-bottom: #cacaca;
+    border-radius: 3px;
+    padding: 10px;
+    min-width: 100px;
+    max-width: 250px;
+    word-wrap: break-word;
+    z-index: 1;
 }
-
+.ghd-container .list-title {
+    line-height: 35px;
+    font-size: 12px;
+    color: #777;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+}
+.ghd-container ul {
+    padding: 0 0 0 20px;
+    margin: 0;
+}
+.ghd-container li {
+    list-style: decimal;
+    margin-bottom: 5px;
+}
+.view-pull-request {
+    position: relative;
+}
 div.ghd-files {
-
 }
-
 div.ghd-file {
-
 }
