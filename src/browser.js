@@ -19,6 +19,17 @@ Ghd.containers = {};
 Ghd.hunks = {};
 
 /**
+ * Print obj on the console log if its available
+ *
+ * @param Object obj
+ */
+Ghd.log = function(obj) {
+	if (console && console.log) {
+		console.log(obj);
+	}
+};
+
+/**
  * Inject a css to the head element
  */
 Ghd.injectCss = function(cssLink) {
@@ -31,18 +42,40 @@ Ghd.injectCss = function(cssLink) {
 	headNode.appendChild(cssNode);
 };
 
+Ghd.showContainerForPath = function(path) {
+	Ghd.allContainers.hide();
+	$container = Ghd.containers[path];
+	$container.show();
+};
+
 /**
  * Create the browsing tree
  */
 Ghd.createTree = function() {
+	
 	var $container = $('<div class="ghd-container"></div>'),
 		$files = $('<ul class="ghd-files"></ul>').appendTo($container)
 		;
+
 	$.each(Ghd.hunks, function(path, hunks) {
 		var $file = $('<li class="ghd-file"></li>');
-		$file.append('<a href="#" class="ghd-file-link" data-path="'+path+'">'+path+'</a>');
+		var $link = $('<a href="#" class="ghd-file-link" data-path="'+path+'">'+path+'</a>');
+
+		$link.click(function(e) {
+
+			e.stopPropagation();
+			e.preventDefault();
+			
+			var $link = $(this);
+			Ghd.showContainerForPath($link.data('path'));
+			return false;
+		});
+
+		$file.append($link);
 		$files.append($file);
+
 		// TODO: append each hunks so we can jump to hunks
+
 	});
 	return $container;
 };
@@ -51,15 +84,7 @@ Ghd.createTree = function() {
  * Initialize a bunch of event listeners
  */
 Ghd.initEventListeners = function() {
-	$('a.ghd-file-link').live('click', function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		Ghd.allContainers.hide();
-		var $link = $(this),
-			$container = Ghd.containers[$link.data('path')];
-		$container.show();
-		return false;
-	});
+	
 };
 
 /**
@@ -67,7 +92,7 @@ Ghd.initEventListeners = function() {
  */
 Ghd.init = function() {
 
-	Ghd.injectCss(Ghd.ROOT_PATH + '/browser.css');
+	//Ghd.injectCss(Ghd.ROOT_PATH + '/browser.css');
 
 	Ghd.initEventListeners();
 
@@ -103,11 +128,14 @@ Ghd.init = function() {
 	$tree = Ghd.createTree();
 	$tree.appendTo('body');
 
+	Ghd.log('loaded diff-browser');
+	Ghd.log(Ghd.hunks);
+
 };
 
 
 (function() {
-	$(document).ready(function() {
+	$(window.document).ready(function() {
 		Ghd.init();
 	});
 })();

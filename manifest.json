@@ -1,0 +1,14 @@
+{
+	"name": "Github Diff Browser",
+	"content_scripts": [
+		{
+			"matches": ["https://github.com/*/*/pull/*/files"],
+			"js": ["lib/jquery.min.js", "src/browser.js"],
+			"css": ["src/browser.css"],
+			"run_at": "document_end"
+		}
+	],
+	"permissions": ["activeTab"],
+	"version": "0.0.1",
+	"manifest_version": 2
+}
